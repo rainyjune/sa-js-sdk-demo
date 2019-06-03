@@ -7,8 +7,10 @@ import Topics from './components/topics';
 
 import './App.css';
 
+// 引入 SDK
 import sensors from'sa-sdk-javascript';
 
+// 配置参数
 sensors.init({
   server_url: '//test-syg.datasink.sensorsdata.cn/sa?token=27f1e21b78daf376&project=lixiang',
   heatmap: {}
@@ -36,7 +38,7 @@ class App extends React.Component {
   }
 
   handleLocationChange = (location) => {
-    // Do something with the location
+    // 路由变化时执行 sensors.quick("autoTrackSinglePage");
     console.log('changed:', location);
     sensors.quick("autoTrackSinglePage");
   }

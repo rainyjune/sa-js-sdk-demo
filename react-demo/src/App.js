@@ -10,7 +10,7 @@ import './App.css';
 import sensors from'sa-sdk-javascript';
 
 sensors.init({
-  server_url: 'http://test-syg.datasink.sensorsdata.cn/sa?token=27f1e21b78daf376&project=lixiang',
+  server_url: '//test-syg.datasink.sensorsdata.cn/sa?token=27f1e21b78daf376&project=lixiang',
   heatmap: {}
 });
 

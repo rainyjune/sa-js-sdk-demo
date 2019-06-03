@@ -1,26 +1,16 @@
 这个目录展示了如何把神策 JS SDK 嵌入到使用 React 开发的单页面网站里。
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+这里的代码是使用 [Create React App](https://github.com/facebook/create-react-app) 创建的。
 
-## Available Scripts
+## 可用的脚本命令
 
-In the project directory, you can run:
+在这个目录执行 npm install 之后，可以运行如下命令:
 
 ### `npm start`
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+在开机开启开发模式.<br>
+在浏览器中访问 [http://localhost:3000](http://localhost:3000) 可以看到这个网站。
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
+把网站编译生成到 `build` 目录。<br>

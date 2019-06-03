@@ -1,8 +1,10 @@
 import React from 'react';
 import './App.css';
 
+// 引入 SDK
 import sensors from'sa-sdk-javascript';
 
+// 初始化
 sensors.init({
   //SDK版本1.12.18以上支持，默认值为false
   is_track_single_page: true,
@@ -25,7 +27,7 @@ export default class App extends React.Component {
       content: title
     });
     document.title = title;
-    window.history.pushState(null, title, title);
+    window.history.pushState(null, title, 'index.html?q=' + title);
   }
   componentDidMount() {
     //注意默认的： sensors.quick('autoTrack') 是需要的

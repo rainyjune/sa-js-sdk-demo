@@ -1,13 +1,13 @@
 import React from "react";
-import {
-  BrowserRouter,
-  Route,
-  Link
-} from "react-router-dom";
-import sensors from'sa-sdk-javascript';
+import { BrowserRouter, Route, Link } from "react-router-dom";
 
-import logo from './logo.svg';
+import Home from './components/home';
+import About from './components/about';
+import Topics from './components/topics';
+
 import './App.css';
+
+import sensors from'sa-sdk-javascript';
 
 sensors.init({
   server_url: 'http://test-syg.datasink.sensorsdata.cn/sa?token=27f1e21b78daf376&project=lixiang',
@@ -15,8 +15,6 @@ sensors.init({
 });
 
 class BasicExample extends React.Component {
-  componentDidMount() {
-  }
   render() {
     return (
       <BrowserRouter>
@@ -69,69 +67,5 @@ class App extends React.Component {
 }
 
 
-function Home() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
-
-
-
-function About() {
-  return (
-    <div>
-      <h2>About</h2>
-    </div>
-  );
-}
-
-function Topics({ match }) {
-  return (
-    <div>
-      <h2>Topics</h2>
-      <ul>
-        <li>
-          <Link to={`${match.url}/rendering`}>Rendering with React</Link>
-        </li>
-        <li>
-          <Link to={`${match.url}/components`}>Components</Link>
-        </li>
-        <li>
-          <Link to={`${match.url}/props-v-state`}>Props v. State</Link>
-        </li>
-      </ul>
-
-      <Route path={`${match.path}/:topicId`} component={Topic} />
-      <Route
-        exact
-        path={match.path}
-        render={() => <h3>Please select a topic.</h3>}
-      />
-    </div>
-  );
-}
-
-function Topic({ match }) {
-  return (
-    <div>
-      <h3>{match.params.topicId}</h3>
-    </div>
-  );
-}
 
 export default BasicExample;

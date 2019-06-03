@@ -1,3 +1,5 @@
+这个目录展示了如何把神策 JS SDK 嵌入到使用 React 开发的单页面网站里。
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

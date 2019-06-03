@@ -1,16 +1,10 @@
 这个目录展示了如何把神策 JS SDK 嵌入到使用 React 开发的单页面网站里。
 
-这里的代码是使用 [Create React App](https://github.com/facebook/create-react-app) 创建的。
+这里的代码是使用 [Create React App](https://github.com/facebook/create-react-app) 创建的。这个项目使用了 [React Router](https://github.com/ReactTraining/react-router)。
 
-## 可用的脚本命令
+```
+npm install
+npm start
+```
 
-在这个目录执行 npm install 之后，可以运行如下命令:
-
-### `npm start`
-
-在开机开启开发模式.<br>
-在浏览器中访问 [http://localhost:3000](http://localhost:3000) 可以看到这个网站。
-
-### `npm run build`
-
-把网站编译生成到 `build` 目录。<br>
+文档请访问 https://www.sensorsdata.cn/manual/js_sdk_spa.html#2-%E5%8D%95%E9%A1%B5%E9%9D%A2%E4%B8%AD%E7%9A%84%E9%A1%B5%E9%9D%A2%E6%B5%8F%E8%A7%88%E4%BA%8B%E4%BB%B6%E9%87%87%E9%9B%86pageview

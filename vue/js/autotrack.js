@@ -21,7 +21,7 @@
   sdk_url: 'https://unpkg.com/sa-sdk-javascript@1.13.10/sensorsdata.min.js',
   heatmap_url: 'https://unpkg.com/sa-sdk-javascript@1.13.10/heatmap.min.js',
   name: 'sensors',
-  server_url: 'http://test-syg.datasink.sensorsdata.cn/sa?token=27f1e21b78daf376&project=lixiang',
+  server_url: '//test-syg.datasink.sensorsdata.cn/sa?token=27f1e21b78daf376&project=lixiang',
   heatmap:{}
 });
 

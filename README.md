@@ -6,5 +6,4 @@
 
 
 详细信息访问：
-
-https://www.sensorsdata.cn/manual/js_sdk_spa.html
+https://www.sensorsdata.cn/manual/js_sdk.html

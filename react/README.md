@@ -1,16 +1,11 @@
 # A feature-rich todo list web app
 
-Online demo: https://toolkit.site/todos/
-
-- add, remove and toggle todo items
-- record created and completed time
-- filter items by completed status
-- drag item to arrange priority
+展示了如何把神策 JS SDK 嵌入到一个 React 单页面应用中。这里使用了自动模式。
 
 # Build
 
 ```
-yarn
-yarn start
-yarn build
+npm install
+npm start
+npm run build
 ```

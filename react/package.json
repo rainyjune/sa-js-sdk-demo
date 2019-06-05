@@ -17,6 +17,7 @@
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "reboot.css": "^1.0.1",
+    "sa-sdk-javascript": "^1.13.10",
     "styled-components": "^4.0.3"
   },
   "devDependencies": {

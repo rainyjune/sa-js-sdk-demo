@@ -10,7 +10,7 @@ import sensors from'sa-sdk-javascript';
 sensors.init({
   //SDK版本1.12.18以上支持，默认值为false
   is_track_single_page: true,
-  server_url: '//test-syg.datasink.sensorsdata.cn/sa?token=27f1e21b78daf376&project=lixiang',
+  server_url: '//test-syg.datasink.sensorsdata.cn/sa?token=27f1e21b78daf376&project=lixiang', // 这里填写您自己的神策后台地址
   heatmap: {}
 });
 

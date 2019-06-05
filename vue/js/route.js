@@ -8,10 +8,11 @@
   });
 
   //vue 项目在路由切换的时候调用
-  router.afterEach(function (to, from) {
-    Vue.nextTick(() => {
+  router.beforeEach(function (to, from, next) {
+    setTimeout(function(){
       sensors.quick("autoTrackSinglePage");
-    });
+      next();
+    },0);
   });
 
   exports.router = router;

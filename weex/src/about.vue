@@ -1,19 +1,16 @@
 <template>
   <div class="wrapper">
-    <image :src="logo" class="logo" />
-    <text class="greeting">The environment is ready!</text>
-    <HelloWorld/>
-    <text class="button" @click="go">about.html</text>
+    <text class="greeting">About</text>
+    <text class="message">This is the about page.</text>
+    <text class="button" @click="back">Back</text>
   </div>
 </template>
 
 <script>
-import HelloWorld from '@/components/HelloWorld';
 const navigator = weex.requireModule('navigator');
 export default {
   name: 'App',
   components: {
-    HelloWorld
   },
   data () {
     return {
@@ -21,11 +18,8 @@ export default {
     }
   },
   methods: {
-    go () {
-      navigator.push({
-        url: './about.html',
-        animated: 'true'
-      });
+    back () {
+      navigator.pop({ animated: 'true' })
     }
   }
 }

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title>Input</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no" />
+  </head>
+
+  <body>
+    <div id="log">
+    </div>
+    <form>
+      <div>
+        <label for="name">Name (4 to 8 characters):</label>
+        <input class="saelement" type="text" id="name" name="name" required minlength="4" maxlength="8" size="10" />
+      </div>
+      <div>
+        <label for="idnumber">身份证号码:</label>
+        <input saelement type="text" id="idnumber" name="idnumber" readonly value="131213198709091234" />
+        <input type="button" id="updateID" value="修改一下" />
+      </div>
+    </form>
+    <script>
+      (function(para) {
+        if(typeof(window['sensorsDataAnalytic201505']) !== 'undefined') {
+          return false;
+        }
+        window['sensorsDataAnalytic201505'] = para.name;
+        window[para.name] = {
+          para: para
+        };
+      })({
+        name: 'sensors',
+        server_url: 'https://test-syg.datasink.sensorsdata.cn/sa?token=27f1e21b78daf376&project=lixiang',
+        heatmap_url: "https://cdn.jsdelivr.net/npm/sa-sdk-javascript@1.13.12/heatmap.min.js"
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sa-sdk-javascript@1.13.12/sensorsdata.min.js"></script>
+    <script>
+window.addEventListener('DOMContentLoaded', function() {
+
+  // 使用CSS选择器来选择要采集的 input 元素，可以用 document.querySelectorAll() 来确认元素
+  var selectorArr = ['[saelement]', '.saelement'];
+  var selectorString = selectorArr.join(', ')
+
+  document.body.addEventListener('focusin', function(event) {
+    var target = event.target;
+    if (target.tagName.toLowerCase() === 'input' && target.matches(selectorString)) {
+      target.dataset.focus_time = (new Date()).valueOf();
+      target.dataset.focus_value = target.value;
+    }
+  });
+
+  // 只读input发生改变时
+  document.body.addEventListener('change', function(event) {
+    console.log('event', event)
+    var target = event.target;
+    var targetTag = target.tagName.toLowerCase();
+    if (targetTag === 'input' && target.readOnly && target.matches(selectorString)) {
+      var now = (new Date()).valueOf();
+      var requestData = {
+        input_box_name: target.name,
+        end_time: now,
+        previous_value: target.dataset.previous_value || target.defaultValue,
+        after_value: target.value,
+        whether_to_paste: false,
+        delete_or_not: false
+      };
+      sensors.track('InputBlur', requestData);
+      target.dataset.previous_value = target.value;
+    }
+  });
+
+  // 普通input失去焦点时
+  document.body.addEventListener('focusout', function(event) {
+
+    console.log('event', event)
+    var target = event.target;
+    var targetTag = target.tagName.toLowerCase();
+
+    if (targetTag === 'input' && target.matches(selectorString) && target.readOnly === false) {
+      var now = (new Date()).valueOf();
+      var requestData = {
+        input_box_name: target.name,
+        begin_time: parseInt(target.dataset.focus_time),
+        end_time: now,
+        $event_duration: now - target.dataset.focus_time,
+        previous_value: target.dataset.focus_value,
+        after_value: target.value
+      };
+      console.log('Data:', JSON.stringify(requestData));
+      // 发送自定义事件
+      sensors.track('InputBlur', requestData);
+    }
+  });
+
+  document.getElementById('updateID').addEventListener('click', function(event) {
+    var idnumberInput = document.getElementById('idnumber');
+
+    event.preventDefault();
+
+    idnumberInput.value = Math.random();
+
+    if (document.createEvent && idnumberInput.dispatchEvent) {
+        var evt = document.createEvent("HTMLEvents");
+        evt.initEvent("change", true, true);
+        idnumberInput.dispatchEvent(evt); // for DOM-compliant browsers
+    } else if (ctrl.fireEvent) {
+        idnumberInput.fireEvent("onchange");
+    }
+
+
+  });
+
+
+  // Polyfill for Element.matches()
+  if (!Element.prototype.matches) {
+    Element.prototype.matches =
+      Element.prototype.matchesSelector ||
+      Element.prototype.mozMatchesSelector ||
+      Element.prototype.msMatchesSelector ||
+      Element.prototype.oMatchesSelector ||
+      Element.prototype.webkitMatchesSelector ||
+      function(s) {
+        var matches = (this.document || this.ownerDocument).querySelectorAll(s),
+            i = matches.length;
+        while (--i >= 0 && matches.item(i) !== this) {}
+        return i > -1;
+      };
+  }
+
+});
+    </script>
+  </body>
+</html>

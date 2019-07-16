@@ -14,11 +14,11 @@
     <form>
       <div>
         <label for="name">Name (4 to 8 characters):</label>
-        <input class="saelement" type="text" id="name" name="name" required minlength="4" maxlength="8" size="10" />
+        <input data-customlabel="input-normal" data-screenname="screen1" type="text" id="name" name="name" required minlength="4" maxlength="8" size="10" />
       </div>
       <div>
         <label for="idnumber">身份证号码:</label>
-        <input saelement type="text" id="idnumber" name="idnumber" readonly value="131213198709091234" />
+        <input data-customlabel="input-change" data-screenname="screen2" saelement type="text" id="idnumber" name="idnumber" value="131213198709091234" />
         <input type="button" id="updateID" value="修改一下" />
       </div>
     </form>
@@ -41,13 +41,12 @@
     <script>
 window.addEventListener('DOMContentLoaded', function() {
 
-  // 使用CSS选择器来选择要采集的 input 元素，可以用 document.querySelectorAll() 来确认元素
-  var selectorArr = ['[saelement]', '.saelement'];
-  var selectorString = selectorArr.join(', ')
+  var normalInputSelectorArr = ['[data-customlabel="input-normal"]'];
+  var changeInputSelectorArr = ['[data-customlabel="input-change"]'];
 
   document.body.addEventListener('focusin', function(event) {
     var target = event.target;
-    if (target.tagName.toLowerCase() === 'input' && target.matches(selectorString)) {
+    if (target.tagName.toLowerCase() === 'input' && target.matches(normalInputSelectorArr.join(', '))) {
       target.dataset.focus_time = (new Date()).valueOf();
       target.dataset.focus_value = target.value;
     }
@@ -58,7 +57,7 @@ window.addEventListener('DOMContentLoaded', function() {
     console.log('event', event)
     var target = event.target;
     var targetTag = target.tagName.toLowerCase();
-    if (targetTag === 'input' && target.readOnly && target.matches(selectorString)) {
+    if (targetTag === 'input' && target.matches(changeInputSelectorArr.join(', '))) {
       var now = (new Date()).valueOf();
       var requestData = {
         input_box_name: target.name,
@@ -68,7 +67,9 @@ window.addEventListener('DOMContentLoaded', function() {
         whether_to_paste: false,
         delete_or_not: false
       };
-      sensors.track('InputBlur', requestData);
+      alert('InputChange:' + JSON.stringify(requestData));
+
+      sensors.track('InputChange', requestData);
       target.dataset.previous_value = target.value;
     }
   });
@@ -80,7 +81,7 @@ window.addEventListener('DOMContentLoaded', function() {
     var target = event.target;
     var targetTag = target.tagName.toLowerCase();
 
-    if (targetTag === 'input' && target.matches(selectorString) && target.readOnly === false) {
+    if (targetTag === 'input' && target.matches(normalInputSelectorArr.join(', '))) {
       var now = (new Date()).valueOf();
       var requestData = {
         input_box_name: target.name,
@@ -90,7 +91,7 @@ window.addEventListener('DOMContentLoaded', function() {
         previous_value: target.dataset.focus_value,
         after_value: target.value
       };
-      console.log('Data:', JSON.stringify(requestData));
+      alert('InputBlur:' + JSON.stringify(requestData));
       // 发送自定义事件
       sensors.track('InputBlur', requestData);
     }
@@ -100,18 +101,10 @@ window.addEventListener('DOMContentLoaded', function() {
     var idnumberInput = document.getElementById('idnumber');
 
     event.preventDefault();
-
+    // 更新 input[data-customlabel="input-change"] 的值
     idnumberInput.value = Math.random();
-
-    if (document.createEvent && idnumberInput.dispatchEvent) {
-        var evt = document.createEvent("HTMLEvents");
-        evt.initEvent("change", true, true);
-        idnumberInput.dispatchEvent(evt); // for DOM-compliant browsers
-    } else if (ctrl.fireEvent) {
-        idnumberInput.fireEvent("onchange");
-    }
-
-
+    // 触发 change 事件
+    triggerChangeEvent(idnumberInput);
   });
 
 
@@ -129,6 +122,16 @@ window.addEventListener('DOMContentLoaded', function() {
         while (--i >= 0 && matches.item(i) !== this) {}
         return i > -1;
       };
+  }
+
+  function triggerChangeEvent(element) {
+    if (document.createEvent && element.dispatchEvent) {
+      var evt = document.createEvent("HTMLEvents");
+      evt.initEvent("change", true, true);
+      element.dispatchEvent(evt);
+    } else if (element.fireEvent) {
+      element.fireEvent("onchange");
+    }
   }
 
 });

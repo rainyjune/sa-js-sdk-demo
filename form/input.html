@@ -14,11 +14,11 @@
     <form>
       <div>
         <label for="name">Name (4 to 8 characters):</label>
-        <input data-customlabel="input-normal" data-screenname="screen1" type="text" id="name" name="name" required minlength="4" maxlength="8" size="10" />
+        <input data-customlabel="input-normal" data-screenname="screen1" type="text" id="name" name="name" required minlength="4" maxlength="8" size="10" value="1" />
       </div>
       <div>
         <label for="idnumber">身份证号码:</label>
-        <input data-customlabel="input-change" data-screenname="screen2" saelement type="text" id="idnumber" name="idnumber" value="131213198709091234" />
+        <input data-customlabel="input-change" readonly data-screenname="screen2" type="text" id="idnumber" name="idnumber" value="131213198709091234" />
         <input type="button" id="updateID" value="修改一下" />
       </div>
     </form>
@@ -34,14 +34,14 @@
       })({
         name: 'sensors',
         server_url: 'https://test-syg.datasink.sensorsdata.cn/sa?token=27f1e21b78daf376&project=lixiang',
-        heatmap_url: "https://cdn.jsdelivr.net/npm/sa-sdk-javascript@1.13.12/heatmap.min.js",
+        heatmap_url: "https://cdn.jsdelivr.net/npm/sa-sdk-javascript@1.13.5/heatmap.min.js",
 
         // 新的配置项
         normalInputSelectorArr: ['[data-customlabel="input-normal"]'],
         changeInputSelectorArr: ['[data-customlabel="input-change"]']
       });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/sa-sdk-javascript@1.13.12/sensorsdata.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sa-sdk-javascript@1.13.5/sensorsdata.min.js"></script>
     <script src="sensors.input.js"></script>
     <script>
 window.addEventListener('DOMContentLoaded', function() {
@@ -52,8 +52,8 @@ window.addEventListener('DOMContentLoaded', function() {
     event.preventDefault();
     // 更新 input[data-customlabel="input-change"] 的值
     idnumberInput.value = Math.random();
-    // 触发 change 事件
-    sensors.triggerChangeEvent(idnumberInput);
+    // 手动发送数据
+    sensors.trackChangeInput(idnumberInput);
   });
 
 });

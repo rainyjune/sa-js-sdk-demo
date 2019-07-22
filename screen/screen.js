@@ -1,8 +1,9 @@
 var elements = document.querySelectorAll('[id]');
 
-elements.forEach(function(element) {
+for (var i = elements.length - 1; i >= 0; i--) {
+  var element = elements[i];
   element.innerHTML = getGlobalVarFromStr(element.id);
-});
+}
 
 document.querySelector('[data-myid="screenWidth"]').innerHTML = window.screen.width * window.devicePixelRatio;
 document.querySelector('[data-myid="screenHeight"]').innerHTML = window.screen.height * window.devicePixelRatio;

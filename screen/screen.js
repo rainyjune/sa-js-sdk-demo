@@ -4,6 +4,9 @@ elements.forEach(function(element) {
   element.innerHTML = getGlobalVarFromStr(element.id);
 });
 
+document.querySelector('[data-myid="screenWidth"]').innerHTML = window.screen.width * window.devicePixelRatio;
+document.querySelector('[data-myid="screenHeight"]').innerHTML = window.screen.height * window.devicePixelRatio;
+
 function getGlobalVarFromStr(str) {
   var currentVar = window;
   var arr = str.split('.');

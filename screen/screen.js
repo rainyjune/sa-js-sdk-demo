@@ -25,3 +25,8 @@ function getGlobalVarFromStr(str) {
 window.addEventListener("scroll", function (event) {
   updateAllData();
 });
+
+
+window.onresize = function(event) {
+  updateAllData();
+};

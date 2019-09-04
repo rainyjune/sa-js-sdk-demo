@@ -59,6 +59,7 @@ window.addEventListener('DOMContentLoaded', function() {
         previous_value: target.dataset.focus_value, 
         after_value: target.value
       };
+      // 调用 track() 方法发送自定义事件
       sensors.track('Input_box_out_of_focus', requestData);
     }
   });

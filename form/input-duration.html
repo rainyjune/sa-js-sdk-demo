@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title>Input Duration</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no" />
+  </head>
+
+  <body>
+    <div id="log">
+    </div>
+    <form>
+      <div>
+        <label for="name">Name (4 to 8 characters):</label>
+        <input type="text" id="name" name="name" required minlength="4" maxlength="8" size="10" value="" placeholder="Input your name" />
+      </div>
+    </form>
+    <script>
+      (function(para) {
+        if(typeof(window['sensorsDataAnalytic201505']) !== 'undefined') {
+          return false;
+        }
+        window['sensorsDataAnalytic201505'] = para.name;
+        window[para.name] = {
+          para: para
+        };
+      })({
+        name: 'sensors',
+        server_url: 'https://test-syg.datasink.sensorsdata.cn/sa?token=27f1e21b78daf376&project=lixiang',
+        heatmap_url: "https://cdn.jsdelivr.net/npm/sa-sdk-javascript@1.13.5/heatmap.min.js"
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sa-sdk-javascript@1.13.5/sensorsdata.min.js"></script>
+    <script>
+window.addEventListener('DOMContentLoaded', function() {
+
+  // 监听 focusin 事件，选择 focusin 是因为它支持冒泡
+  document.body.addEventListener('focusin', function(event) {
+    var target = event.target;
+    if (target.tagName.toLowerCase() === 'input') { // 如果当前元素是 input 输入框
+      target.dataset.focus_time = (new Date()).valueOf(); // 把获得焦点的时间记录到input输入框
+      target.dataset.focus_value = target.value;
+    }
+  });
+
+  // 监听 focusout 事件，会在input失去焦点时触发，此事件支持冒泡
+  document.body.addEventListener('focusout', function(event) {
+    var target = event.target;
+    var targetTag = target.tagName.toLowerCase();
+    if (targetTag === 'input') { // 如果当前元素是 input 输入框
+      var now = (new Date()).valueOf();
+      var requestData = {
+        input_name: target.name, // input 输入框的 name 属性
+        begin_time: parseInt(target.dataset.focus_time), // 获得焦点的时间戳，单位是毫秒
+        end_time: now, // 失去焦点的时间戳，单位是毫秒
+        event_duration: now - target.dataset.focus_time, // 时长，单位是毫秒
+        previous_value: target.dataset.focus_value, 
+        after_value: target.value
+      };
+      sensors.track('Input_box_out_of_focus', requestData);
+    }
+  });
+
+});
+    </script>
+  </body>
+</html>

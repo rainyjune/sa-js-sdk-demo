@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>test</title>
+    <style>
+      img {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <img src="https://www.baidu.com/img/bd_logo1.png?qua=high" class="logo" />
+
+    <a href="#"><img src="https://www.baidu.com/img/bd_logo1.png?qua=high" class="baidulogo2" /></a>
+
+    <ul>
+      <li>Google</li>
+      <li>Baidu</li>
+      <li>Sogou</li>
+    </ul>
+    <p>paragraph1</p>
+    <p>paragraph2</p>
+    <p>paragraph3</p>
+    <p>paragraph4</p>
+    <p>paragraph5</p>
+    <script>
+      (function(para) {
+        if(typeof(window['sensorsDataAnalytic201505']) !== 'undefined') {
+          return false;
+        }
+        window['sensorsDataAnalytic201505'] = para.name;
+        window[para.name] = {
+          para: para
+        };
+      })({
+        name: 'sensors',
+        server_url: 'https://test-syg.datasink.sensorsdata.cn/sa?token=27f1e21b78daf376&project=lixiang',
+        heatmap: {
+          clickmap:'default',
+          scroll_notice_map:'not_collect',
+          //采集所有元素
+          collect_elements:"all",
+          //采集规则
+          collect_element:function(element_target){
+            if (sensors.matches(element_target, sensors.para.webClickSelectorArr.join(', '))){
+              return true;
+            } else {
+              return false;
+            }
+          }
+        },
+        // 新的配置项
+        webClickSelectorArr: ['img', 'li', '.logo'] // 支持标签名，或者类名
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sa-sdk-javascript@1.14.8/sensorsdata.min.js"></script>
+    <script>
+      sensors.quick('autoTrack');
+
+      // 注册一个方法
+      sensors.matches = function(element, selectors) {
+        var matchesFunc = Element.prototype.matches ||
+          Element.prototype.matchesSelector ||
+          Element.prototype.mozMatchesSelector ||
+          Element.prototype.msMatchesSelector ||
+          Element.prototype.oMatchesSelector ||
+          Element.prototype.webkitMatchesSelector ||
+          function(s) {
+            var matches = (this.document || this.ownerDocument).querySelectorAll(s),
+                i = matches.length;
+            while (--i >= 0 && matches.item(i) !== this) {}
+            return i > -1;
+          };
+        return matchesFunc.call(element, selectors);
+      };
+    </script>
+  </body>
+</html>

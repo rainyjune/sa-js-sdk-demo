@@ -12,7 +12,7 @@
   <body>
     <img src="https://www.baidu.com/img/bd_logo1.png?qua=high" class="logo" />
 
-    <a href="#"><img src="https://www.baidu.com/img/bd_logo1.png?qua=high" class="baidulogo2" /></a>
+    <a href="http://baidu.com"><img src="https://www.baidu.com/img/bd_logo1.png?qua=high" class="baidulogo2" /></a>
 
     <ul>
       <li>Google</li>
@@ -24,6 +24,7 @@
     <p>paragraph3</p>
     <p>paragraph4</p>
     <p>paragraph5</p>
+    <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script>
       (function(para) {
         if(typeof(window['sensorsDataAnalytic201505']) !== 'undefined') {
@@ -43,6 +44,9 @@
           collect_elements:"all",
           //采集规则
           collect_element:function(element_target){
+            // 如果使用 jQuery 
+            //if ($(element_target).is(sensors.para.webClickSelectorArr.join(', '))) {
+            // 如果使用原生 JS，注意有浏览器兼容性问题
             if (sensors.matches(element_target, sensors.para.webClickSelectorArr.join(', '))){
               return true;
             } else {
@@ -51,7 +55,7 @@
           }
         },
         // 新的配置项
-        webClickSelectorArr: ['img', 'li', '.logo'] // 支持标签名，或者类名
+        webClickSelectorArr: ['a', 'img', 'li', '.logo'] // 支持标签名，或者类名
       });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sa-sdk-javascript@1.14.8/sensorsdata.min.js"></script>

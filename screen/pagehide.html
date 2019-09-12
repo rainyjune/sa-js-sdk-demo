@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>pagehide tests</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no" />
+  </head>
+  <body>
+    <h2>Width</h2>
+    <a href="//baidu.com">baidu.com</a>
+    <script src="sensorsdata.js"></script>
+    <script>
+      var start = new Date();
+
+      var loadHandler = function(e) {
+        start = new Date();
+      };
+
+      var unloadHandler = function (e) {
+        var end = new Date();
+        // 如果用户一直不关闭页面，可能出现超大值，可以根据业务需要处理，例如设置一个上限
+        var duration = (end.getTime() - start.getTime()) / 1000;
+        // 定义一个记录页面停留时间的事件pageView,并且保存需要的属性(停留时间和当前页面的地址)
+        sensors.track('pageclose', {
+          pageStayTime: duration,
+          pageUrl: window.location.href
+        });
+      };
+
+      if ('onpageshow' in window) {
+        addEvent(window, 'pageshow', loadHandler);
+        addEvent(window, 'pagehide', unloadHandler);
+      } else {
+        addEvent(window, 'load', loadHandler);
+        addEvent(window, 'unload', unloadHandler);
+      }
+
+      function addEvent(target, type, listener) {
+        if (window.addEventListener) {
+          target.addEventListener(type, listener, false);
+        } else {
+          target.attachEvent('on' + type, listener);
+        }
+      }
+    </script>
+  </body>
+</html>

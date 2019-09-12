@@ -37,15 +37,13 @@
         addEvent(window, 'unload', unloadHandler);
       }
 
-      // 检测当前网页是否可见
+      // 如果需要检测网页的隐藏/显示
       document.addEventListener("visibilitychange", function() {
-        console.log('visibilitychange:', document.visibilityState);
         if (document.visibilityState === 'visible') {
+          loadHandler();
         } else {
+          unloadHandler();
         }
-        sensors.track('visibilitychange', {
-          visibilityState: document.visibilityState
-        });
       });
 
       function addEvent(target, type, listener) {

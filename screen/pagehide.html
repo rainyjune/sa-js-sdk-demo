@@ -37,6 +37,17 @@
         addEvent(window, 'unload', unloadHandler);
       }
 
+      // 检测当前网页是否可见
+      document.addEventListener("visibilitychange", function() {
+        console.log('visibilitychange:', document.visibilityState);
+        if (document.visibilityState === 'visible') {
+        } else {
+        }
+        sensors.track('visibilitychange', {
+          visibilityState: document.visibilityState
+        });
+      });
+
       function addEvent(target, type, listener) {
         if (window.addEventListener) {
           target.addEventListener(type, listener, false);

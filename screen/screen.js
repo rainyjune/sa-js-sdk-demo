@@ -1,6 +1,6 @@
 var elements = ["screen.width", "innerWidth", "document.body.clientWidth", "document.documentElement.clientWidth", "outerWidth", "document.documentElement.scrollWidth", "document.documentElement.offsetWidth", "document.body.scrollWidth", "document.body.offsetWidth", "screen.height", "innerHeight", "document.body.clientHeight", "document.documentElement.clientHeight", "outerHeight", "document.documentElement.scrollHeight", "document.documentElement.offsetHeight", "document.body.scrollHeight", "document.body.offsetHeight", "devicePixelRatio", "pageYOffset", "document.body.scrollTop", "document.documentElement.scrollTop"];
 
-var scrollArr = ["pageYOffset", "document.body.scrollTop", "document.documentElement.scrollTop"];
+var scrollArr = ["scrollY", "pageYOffset", "document.body.scrollTop", "document.documentElement.scrollTop"];
 
 function updateAllData(arr) {
   arr = arr || elements;

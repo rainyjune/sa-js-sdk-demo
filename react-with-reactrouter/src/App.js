@@ -40,6 +40,19 @@ class App extends React.Component {
   handleLocationChange = (location) => {
     // 路由变化时执行 sensors.quick("autoTrackSinglePage");
     console.log('changed:', location);
+
+    // 发送数据之前设置标题
+    switch(location.pathname) {
+      case "/topics":
+        document.title = "Topics";
+        break;
+      case "/about":
+        document.title = "About";
+        break;
+      default:
+        document.title = 'Home';
+        break;
+    }
     sensors.quick("autoTrackSinglePage");
   }
 
